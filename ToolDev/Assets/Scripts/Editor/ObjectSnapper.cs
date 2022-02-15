@@ -50,17 +50,18 @@ public class ObjectSnapper : EditorWindow
                         
         foreach (var selectedObject in Selection.gameObjects)
         {
-            //selectedObject.transform.position = selectedObject.transform.position.Round();
+            selectedObject.transform.position = selectedObject.transform.position.RoundToGridSize(gridSize);
 
-            selectedObject.transform.position = GetTheNearestPosition(selectedObject.transform.position);
+            //selectedObject.transform.position = GetTheNearestPosition(selectedObject.transform.position);
         }
     }
 
     private Vector3 GetTheNearestPosition(Vector3 position)
     {
         position.x = GetNearestInRawValues(position.x);
+        position.z = GetNearestInRawValues(position.z);
 
-        return new Vector3();
+        return new Vector3(position.x,position.y,position.z);
     }
 
     private float GetNearestInRawValues(float x)
@@ -155,11 +156,11 @@ public class ObjectSnapper : EditorWindow
 
 public static class Vector3Extension
 {
-    public static Vector3 Round( this Vector3 v)
+    public static Vector3 RoundToGridSize( this Vector3 v, float gridSize)
     {
-        v.x = Mathf.Round(v.x);
-        v.y = Mathf.Round(v.y);        
-        v.z = Mathf.Round(v.z);
+        v.x = Mathf.Round(v.x / gridSize) * gridSize;
+        v.y = Mathf.Round(v.y / gridSize) * gridSize;        
+        v.z = Mathf.Round(v.z / gridSize) * gridSize;
 
         return v;
     }
