@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteAlways]
+
 public class ExplosionRaiusVisualizer : MonoBehaviour
 {
     public ExplosiveBarrel barrel;
